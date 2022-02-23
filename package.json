@@ -1,0 +1,14 @@
+{
+  "name": "cache-lru",
+  "version": "1.0.0",
+  "description": "Create a function which implements a Least Recently Used cache of a given size.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Roberto Naharro",
+  "license": "ISC",
+  "dependencies": {
+    "ramda": "^0.28.0"
+  }
+}
