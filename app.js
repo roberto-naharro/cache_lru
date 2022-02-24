@@ -10,9 +10,9 @@ const getOlderElementIdx = R.pipe(
   R.reduce(
     (result, element) =>
       element.hit < result.hit
-        ? { ...element, idx: result.idx + 1, idxMin: result.idx + 1 }
+        ? { ...element, idx: result.idx + 1, idxMin: result.idx }
         : { ...result, idx: result.idx + 1, idxMin: result.idxMin },
-    { idx: -1, hit: Infinity, idxMin: -1 }
+    { idx: 0, hit: Infinity, idxMin: -1 }
   ),
   R.prop("idxMin")
 );
@@ -38,7 +38,7 @@ const insertNewElement = (element, cache) =>
   cache.size > cache.elements.length
     ? {
         size: cache.size,
-        elements: [...cache.elements, accessElement(element, cache)],
+        elements: R.append(accessElement(element, cache), cache.elements),
         hit: cache.hit + 1,
       }
     : {
