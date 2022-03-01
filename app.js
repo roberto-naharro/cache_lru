@@ -4,6 +4,8 @@ const fs = require("fs");
 
 /**
  * Get element index with the lowest hit value
+ * @param {Cache} cache cache information
+ * @returns {number} idx of the element or -1 if not found
  */
 const getOlderElementIdx = R.pipe(
   R.prop("elements"),
@@ -21,7 +23,7 @@ const getOlderElementIdx = R.pipe(
  * Increase the hit number of the element
  * @param {string} value value to update
  * @param {Cache} cache cache information
- * @returns cache element
+ * @returns {{value: string; hit: number}} cache element
  */
 const accessElement = (value, cache) => {
   return { value, hit: cache.hit };
@@ -32,7 +34,7 @@ const accessElement = (value, cache) => {
  * oldest element
  * @param {string} element
  * @param {Cache} cache
- * @returns updated cache
+ * @returns {Cache} updated cache
  */
 const insertNewElement = (element, cache) =>
   cache.size > cache.elements.length
@@ -54,7 +56,7 @@ const insertNewElement = (element, cache) =>
  * Look for an element, and update the hit value
  * @param {string} element
  * @param {Cache} cache
- * @returns undefined if the element is not found, the new cache otherwise
+ * @returns {Cache | undefined} undefined if the element is not found, the new cache otherwise
  */
 const updateIfExists = (element, cache) =>
   R.pipe(
@@ -76,7 +78,7 @@ const updateIfExists = (element, cache) =>
  * oldest one if there is no space in the cache
  * @param {string} element
  * @param {Cache} cache
- * @returns the new cache
+ * @returns {Cache} the new cache
  */
 const insertElement = (element, cache) =>
   R.pipe(
